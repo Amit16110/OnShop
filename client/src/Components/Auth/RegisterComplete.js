@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { auth } from "../../firebase";
 import { toast } from "react-toastify";
 
-const Register = () => {
+const RegisterComplete = () => {
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = async (e) => {
     //   handle submit
@@ -52,4 +53,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterComplete;
