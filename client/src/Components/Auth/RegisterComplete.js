@@ -13,7 +13,39 @@ const RegisterComplete = ({ history }) => {
   const handleSubmit = async (e) => {
     //   handle submit
     e.preventDefault();
+    // email and password validation.
+    if (!email || !password) {
+      toast.error("Email and Password is required");
+      return;
+    }
+    if (password.length > 6) {
+      toast.error("Password must be at least 6 character long");
+      return;
+    }
+
     // signIn with firebase  email link
+    try {
+      const result = await auth.signInWithEmailLink(
+        email,
+        window.location.href
+      );
+
+      if (result.user.emailVerified) {
+        // Remove user email from local storage
+        window.localStorage.removeItem("emailForRegistration");
+        // get user Id token
+        let user = auth.currentUser;
+        await user.updatePassword(password);
+        const idTokenResult = await user.getIdTokenResult(); // get the current login user
+        // redux
+
+        // redirect
+        history.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   const completeRegisterForm = () => (
