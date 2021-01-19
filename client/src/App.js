@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const App = () => {
+  // redux
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,18 +23,19 @@ const App = () => {
       async (user) => {
         if (user) {
           const idTokenResult = await user.getIdTokenResult();
-          console.log("user", user);
+          // console.log("user", user);
           // this is use for backend for protecting route
           dispatch({
             type: "LOGGED_IN_USER",
             payload: {
-              Email: user.email,
+              email: user.email,
               token: idTokenResult.token,
             },
           });
         }
       }
     );
+    return () => unsubscribe();
   }, []);
   return (
     <>

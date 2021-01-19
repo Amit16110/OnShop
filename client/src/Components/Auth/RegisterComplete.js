@@ -18,7 +18,7 @@ const RegisterComplete = ({ history }) => {
       toast.error("Email and Password is required");
       return;
     }
-    if (password.length > 6) {
+    if (password.length < 6) {
       toast.error("Password must be at least 6 character long");
       return;
     }
